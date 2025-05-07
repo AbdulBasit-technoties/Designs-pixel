@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Pixels</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <style>
+        .sidebar {
+            height: calc(100vh - 70px);
+            background: var(--primary-color);
+            transition: 0.3s;
+            position: fixed;
+            left: 0;
+            top: 70px;
+            z-index: 1000;
+            width: 250px;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        }
+        .sidebar.collapsed {
+            transform: translateX(-100%);
+        }
+        .main-content {
+            transition: 0.3s;
+            margin-left: 250px;
+            width: calc(100% - 250px);
+        }
+        .main-content.expanded {
+            margin-left: 0;
+            width: 100%;
+        }
+        .admin-header {
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+            transition: 0.3s;
+            height: 70px;
+        }
+        @media (max-width: 768px) {
+            .admin-header {
+                left: 0;
+            }
+        }
+        .stat-card {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+            }
+            .admin-header {
+                left: 0;
+            }
+            .nav-link {
+                padding: 12px 15px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .sidebar.collapsed {
+                transform: translateX(-100%);
+            }
+            .main-content.expanded {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+        @media (max-width: 425px) {
+            .dashboard-title {
+                font-size: 0.8rem !important;
+            }
+            .user-profile span {
+                font-size: 0.8rem !important;
+                margin: 0px 0.2rem!important;
+            }
+            .admin-header #sidebarToggle {
+                margin: 0px!important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex position-relative">
+        <!-- Sidebar -->
+        <div class="sidebar p-3 text-black bg-white">
+            <div class="user-profile-sidebar mb-4">
+                <div class="d-flex flex-column align-items-center mb-3">
+                    <img src="../assets/images/pic-1.jpg" alt="User" class="rounded-circle" style="width: 80px; height: 80px;">
+                    <h6 class="mt-2 text-black">Admin</h6>
+                </div>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-3">
+                    <a href="#" class="nav-link text-black d-flex align-items-center">
+                        <i class="fas fa-tachometer-alt me-3"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="#" class="nav-link text-black d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#servicesSubmenu">
+                        <i class="fas fa-cogs me-3"></i> Services <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="servicesSubmenu">
+                        <ul class="nav flex-column ms-3 mt-2">
+                            <li class="nav-item">
+                                <a href="./service/create.html" class="nav-link text-black">
+                                    <i class="fas fa-plus-circle me-2"></i> Add Service
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="./service/index.html" class="nav-link text-black">
+                                    <i class="fas fa-list me-2"></i> View Services
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="#" class="nav-link text-black d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#usersSubmenu">
+                        <i class="fas fa-users me-3"></i> Users <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="usersSubmenu">
+                        <ul class="nav flex-column ms-3 mt-2">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-user-plus me-2"></i> Add User
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-user-friends me-2"></i> View Users
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-user-shield me-2"></i> User Roles
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item mb-3">
+                    <a href="#" class="nav-link text-black d-flex align-items-center" data-bs-toggle="collapse" data-bs-target="#settingsSubmenu">
+                        <i class="fas fa-cog me-3"></i> Settings <i class="fas fa-chevron-down ms-auto"></i>
+                    </a>
+                    <div class="collapse" id="settingsSubmenu">
+                        <ul class="nav flex-column ms-3 mt-2">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-globe me-2"></i> General Settings
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-palette me-2"></i> Appearance
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#" class="nav-link text-black">
+                                    <i class="fas fa-bell me-2"></i> Notifications
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../index.html" class="nav-link text-black">
+                                    <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content flex-grow-1" style="padding-top: 70px;">
+            <!-- Header -->
+            <header class="admin-header py-3 px-4">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                        <h4 class="fs-4 dashboard-title">Dashboard</h4>
+                        <button class="btn btn-link text-dark me-3" id="sidebarToggle">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                        <div class="search-bar">
+                            <input type="text" class="form-control" placeholder="Search...">
+                        </div>
+                    </div>
+                    <div class="user-profile d-flex align-items-center">
+                        <span class="me-2 fs-6">Admin</span>
+                        <img src="../assets/images/pic-1.jpg" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="p-4">
+                <div class="row g-4">
+                    <!-- Stat Cards -->
+                    <div class="col-md-3">
+                        <div class="stat-card p-3">
+                            <h6 class="mb-2">Total Users</h6>
+                            <h3>1,234</h3>
+                            <p class="text-success mb-0"><i class="fas fa-arrow-up"></i> 12%</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card p-3">
+                            <h6 class="mb-2">Total Orders</h6>
+                            <h3>856</h3>
+                            <p class="text-success mb-0"><i class="fas fa-arrow-up"></i> 8%</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card p-3">
+                            <h6 class="mb-2">Revenue</h6>
+                            <h3>$12,345</h3>
+                            <p class="text-danger mb-0"><i class="fas fa-arrow-down"></i> 5%</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card p-3">
+                            <h6 class="mb-2">Visitors</h6>
+                            <h3>9,876</h3>
+                            <p class="text-success mb-0"><i class="fas fa-arrow-up"></i> 15%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('sidebarToggle').addEventListener('click', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
+            
+            if (window.innerWidth <= 768) {
+                sidebar.classList.toggle('show');
+            } else {
+                sidebar.classList.toggle('collapsed');
+            }
+            mainContent.classList.toggle('expanded');
+        });
+    </script>
+</body>
+</html>
