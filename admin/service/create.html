@@ -7,77 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../../assets/css/style.css">
-    <style>
-        .sidebar {
-            height: calc(100vh - 70px);
-            background: var(--primary-color);
-            transition: 0.3s;
-            position: fixed;
-            left: 0;
-            top: 70px;
-            z-index: 1000;
-            width: 250px;
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-        }
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
-        .main-content {
-            transition: 0.3s;
-            margin-left: 250px;
-            width: calc(100% - 250px);
-        }
-        .main-content.expanded {
-            margin-left: 0;
-            width: 100%;
-        }
-        .admin-header {
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1001;
-            transition: 0.3s;
-            height: 70px;
-        }
-        @media (max-width: 768px) {
-            .admin-header {
-                left: 0;
-            }
-            .sidebar {
-                transform: translateX(-100%);
-                width: 280px;
-            }
-            .sidebar.show {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-                width: 100%;
-            }
-            .nav-link {
-                padding: 12px 15px;
-            }
-        }
-
-        @media (min-width: 769px) {
-            .sidebar.collapsed {
-                transform: translateX(-100%);
-            }
-            .main-content.expanded {
-                margin-left: 0;
-                width: 100%;
-            }
-        }
-        .form-container {
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 2rem;
-        }
-    </style>
+    <link rel="stylesheet" href="../../assets/css/responsive.css">
 </head>
 <body>
     <div class="d-flex position-relative">
@@ -230,7 +160,10 @@
                                 </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Create Service</button>
+                        <button type="submit" class="btn btn-secondary">Create</button>
+                        <button type="submit" class="btn btn-secondary">
+                            <a href="../service/index.html" class="text-white">Cancel</a>
+                        </button>
                     </form>
                 </div>
             </div>
@@ -252,21 +185,6 @@
             mainContent.classList.toggle('expanded');
         });
 
-        // Form Validation
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
     </script>
 </body>
 </html>
